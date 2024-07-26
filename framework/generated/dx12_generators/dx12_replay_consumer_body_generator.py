@@ -283,7 +283,7 @@ class Dx12ReplayConsumerBodyGenerator(
                         )
 
                         if is_override:
-                            set_length_expr += '        for (size_t i = 0; i < {1}; ++i) {{ {0}->SetConsumerData(i, &object_info[i]); }}\n'.format(
+                            set_length_expr += '        for (size_t i = 0; i < {1}; ++i) {{ {0}->SetConsumerData(i, &object_info_{0}[i]); }}\n'.format(
                                 value.name, handles
                             )
                             set_length_expr += '    }\n'
@@ -296,8 +296,8 @@ class Dx12ReplayConsumerBodyGenerator(
                         # AddObjects expression generated below.
                         handles = '!{}->IsNull() ? {} : 0'.format(array_length, handles)
                         if is_override:
-                            set_length_expr = '    std::vector<DxObjectInfo> object_info({});\n'.format(
-                                handles
+                            set_length_expr = '    std::vector<DxObjectInfo> object_info_{}({});\n'.format(
+                                value.name, handles
                             ) + set_length_expr
                         pre_call_expr_list.append(set_length_expr)
                     else:
@@ -309,19 +309,21 @@ class Dx12ReplayConsumerBodyGenerator(
                                 handles = value.array_length
                         if is_override:
                             if value.array_length:
-                                code += '    std::vector<DxObjectInfo> object_info({});\n'.format(
-                                    handles
-                                )
-                            else:
-                                code += '    DxObjectInfo object_info{};\n'
-                            code += '    if(!{0}->IsNull())\n    {{\n        {0}->SetHandleLength({1});\n'\
-                                    .format(value.name, handles)
-                            if value.array_length:
-                                code += '        for (size_t i = 0; i < {1}; ++i) {{ {0}->SetConsumerData(i, &object_info[i]); }}\n'.format(
+                                code += '    std::vector<DxObjectInfo> object_info_{}({});\n'.format(
                                     value.name, handles
                                 )
                             else:
-                                code += '        {0}->SetConsumerData(0, &object_info);\n'\
+                                code += '    DxObjectInfo object_info_{}{{}};\n'.format(
+                                    value.name
+                                )
+                            code += '    if(!{0}->IsNull())\n    {{\n        {0}->SetHandleLength({1});\n'\
+                                    .format(value.name, handles)
+                            if value.array_length:
+                                code += '        for (size_t i = 0; i < {1}; ++i) {{ {0}->SetConsumerData(i, &object_info_{0}[i]); }}\n'.format(
+                                    value.name, handles
+                                )
+                            else:
+                                code += '        {0}->SetConsumerData(0, &object_info_{0});\n'\
                                         .format(value.name)
                             code += '    }\n'
                         else:
@@ -336,13 +338,13 @@ class Dx12ReplayConsumerBodyGenerator(
                         if value.array_length:
                             add_object_list.append(
                                  'AddObjects({0}->GetPointer(), {0}->GetLength(), {0}->GetHandlePointer(), {1}'\
-                                 'std::move(object_info), format::ApiCall_{2});\n'\
+                                 'std::move(object_info_{0}), format::ApiCall_{2});\n'\
                                  .format(value.name, handles, name)
                             )
                         else:
                             add_object_list.append(
                                 'AddObject({0}->GetPointer(), {0}->GetHandlePointer(), '\
-                                'std::move(object_info), format::ApiCall_{1});\n'\
+                                'std::move(object_info_{0}), format::ApiCall_{1});\n'\
                                 .format(value.name, name)
                             )
                     else:
