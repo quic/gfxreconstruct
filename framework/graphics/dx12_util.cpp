@@ -1,7 +1,7 @@
 /*
 ** Copyright (c) 2021 LunarG, Inc.
 ** Copyright (c) 2021-2023 Advanced Micro Devices, Inc. All rights reserved.
-** Copyright (c) 2023 Qualcomm Innovation Center, Inc. All rights reserved.
+** Copyright (c) 2023-2024 Qualcomm Innovation Center, Inc. All rights reserved.
 **
 ** Permission is hereby granted, free of charge, to any person obtaining a
 ** copy of this software and associated documentation files (the "Software"),
@@ -1644,6 +1644,11 @@ uint64_t GetSubresourceSizeTex1D(DXGI_FORMAT format, uint32_t width, uint32_t mi
     auto mip_level = subresource % mip_levels;
     auto mip_width = std::max(width >> mip_level, 1u);
 
+    if (IsFormatCompressed(format))
+    {
+        mip_width = (mip_width + 3) / 4;
+    }
+
     return static_cast<uint64_t>(mip_width) * GetPixelByteSize(format);
 }
 
@@ -1740,8 +1745,15 @@ uint64_t GetSubresourceWriteDataSize(D3D11_RESOURCE_DIMENSION dst_type,
                     data_size = static_cast<uint64_t>(box_width);
                     break;
                 case D3D12_RESOURCE_DIMENSION_TEXTURE1D:
+                {
+                    if (IsFormatCompressed(dst_format))
+                    {
+                        box_width = (box_width + 3) / 4;
+                    }
+
                     data_size = static_cast<uint64_t>(box_width) * GetPixelByteSize(dst_format);
                     break;
+                }
                 case D3D12_RESOURCE_DIMENSION_TEXTURE2D:
                 {
                     auto box_height = dst_box->bottom - dst_box->top;
@@ -1760,6 +1772,12 @@ uint64_t GetSubresourceWriteDataSize(D3D11_RESOURCE_DIMENSION dst_type,
                 {
                     auto box_height = dst_box->bottom - dst_box->top;
                     auto box_depth  = dst_box->back - dst_box->front;
+
+                    if (IsFormatCompressed(dst_format))
+                    {
+                        box_width  = (box_width + 3) / 4;
+                        box_height = (box_height + 3) / 4;
+                    }
 
                     data_size = static_cast<uint64_t>(box_width) * static_cast<uint64_t>(box_height) *
                                 static_cast<uint64_t>(box_depth) * GetPixelByteSize(dst_format);
