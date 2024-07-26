@@ -91,7 +91,8 @@ DX11_SOURCE_LIST = [
     'um\\d3d11_1.h',
     'um\\d3d11_2.h',
     'um\\d3d11_3.h',
-    'um\\d3d11_4.h'
+    'um\\d3d11_4.h',
+    'um\\d3d11on12.h'
 ]
 
 # The second value is required data. It only generates required data.

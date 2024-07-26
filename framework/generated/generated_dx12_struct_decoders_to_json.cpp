@@ -7124,6 +7124,20 @@ void FieldToJson(nlohmann::ordered_json& jdata, const Decoded_D3D11_FEATURE_DATA
     }
 }
 
+void FieldToJson(nlohmann::ordered_json& jdata, const Decoded_D3D11_RESOURCE_FLAGS* data, const JsonOptions& options)
+{
+    using namespace util;
+    if (data && data->decoded_value)
+    {
+        const D3D11_RESOURCE_FLAGS& decoded_value = *data->decoded_value;
+        const Decoded_D3D11_RESOURCE_FLAGS& meta_struct = *data;
+        FieldToJson(jdata["BindFlags"], decoded_value.BindFlags, options);
+        FieldToJson(jdata["MiscFlags"], decoded_value.MiscFlags, options);
+        FieldToJson(jdata["CPUAccessFlags"], decoded_value.CPUAccessFlags, options);
+        FieldToJson(jdata["StructureByteStride"], decoded_value.StructureByteStride, options);
+    }
+}
+
 void FieldToJson(nlohmann::ordered_json& jdata, const Decoded_tagRECT* data, const JsonOptions& options)
 {
     using namespace util;
