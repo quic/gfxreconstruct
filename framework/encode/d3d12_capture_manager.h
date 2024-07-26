@@ -830,6 +830,14 @@ class D3D12CaptureManager : public ApiCaptureManager
                                                     const D3D11_SUBRESOURCE_DATA* initial_data,
                                                     ID3D11Texture3D1**            texture3D);
 
+    void Destroy_ID3D11Buffer(ID3D11Buffer_Wrapper* wrapper);
+
+    void Destroy_ID3D11Texture1D(ID3D11Texture1D_Wrapper* wrapper);
+
+    void Destroy_ID3D11Texture2D(ID3D11Texture2D_Wrapper* wrapper);
+
+    void Destroy_ID3D11Texture3D(ID3D11Texture3D_Wrapper* wrapper);
+
     void PostProcess_ID3D11DeviceContext_Map(ID3D11DeviceContext_Wrapper* wrapper,
                                              HRESULT                      result,
                                              ID3D11Resource*              resource,
@@ -905,10 +913,12 @@ class D3D12CaptureManager : public ApiCaptureManager
     void                          EnableDRED();
     bool                          RvAnnotationActive();
 
-    void                              PrePresent(IDXGISwapChain_Wrapper* wrapper);
-    void                              PostPresent(IDXGISwapChain_Wrapper* wrapper, UINT flags);
-    static D3D12CaptureManager*       singleton_;
-    std::set<ID3D12Resource_Wrapper*> mapped_resources_; ///< Track mapped resources for unassisted tracking mode.
+    void                                PrePresent(IDXGISwapChain_Wrapper* wrapper);
+    void                                PostPresent(IDXGISwapChain_Wrapper* wrapper, UINT flags);
+    std::shared_ptr<ID3D11ResourceInfo> GetResourceInfo(ID3D11Resource_Wrapper* wrapper);
+    void                                FreeMappedResourceMemory(ID3D11Resource_Wrapper* wrapper);
+    static D3D12CaptureManager*         singleton_;
+    std::set<ID3D12Resource_Wrapper*>   mapped_resources_; ///< Track mapped resources for unassisted tracking mode.
     DxgiDispatchTable  dxgi_dispatch_table_;  ///< DXGI dispatch table for functions retrieved from the DXGI DLL.
     D3D12DispatchTable d3d12_dispatch_table_; ///< D3D12 dispatch table for functions retrieved from the D3D12 DLL.
     AgsDispatchTable   ags_dispatch_table_;   ///< ags dispatch table for functions retrieved from the AGS DLL.
