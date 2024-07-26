@@ -107,19 +107,17 @@ class Dx12ReplayConsumerBase : public Dx12Consumer
         std::vector<format::InitDx12AccelerationStructureGeometryDesc>& geometry_descs,
         const uint8_t*                                                  build_inputs_data) override;
 
-    virtual void Process_ID3D12Device_CheckFeatureSupport(format::HandleId object_id,
-                                                          HRESULT          original_result,
-                                                          D3D12_FEATURE    feature,
-                                                          const void*      capture_feature_data,
-                                                          void*            replay_feature_data,
-                                                          UINT             feature_data_size) override;
+    virtual void Process_ID3D12Device_CheckFeatureSupport(format::HandleId      object_id,
+                                                          HRESULT               original_result,
+                                                          D3D12_FEATURE         feature,
+                                                          DxFeatureDataDecoder* feature_data,
+                                                          UINT                  feature_data_size) override;
 
-    virtual void Process_IDXGIFactory5_CheckFeatureSupport(format::HandleId object_id,
-                                                           HRESULT          original_result,
-                                                           DXGI_FEATURE     feature,
-                                                           const void*      capture_feature_data,
-                                                           void*            replay_feature_data,
-                                                           UINT             feature_data_size) override;
+    virtual void Process_IDXGIFactory5_CheckFeatureSupport(format::HandleId      object_id,
+                                                           HRESULT               original_result,
+                                                           DXGI_FEATURE          feature,
+                                                           DxFeatureDataDecoder* feature_data,
+                                                           UINT                  feature_data_size) override;
 
     virtual void Process_ID3D12Resource_WriteToSubresource(format::HandleId                         object_id,
                                                            HRESULT                                  return_value,
@@ -216,13 +214,12 @@ class Dx12ReplayConsumerBase : public Dx12Consumer
                                                      Decoded_D3D12_CPU_DESCRIPTOR_HANDLE SrcDescriptorRangeStart,
                                                      D3D12_DESCRIPTOR_HEAP_TYPE          DescriptorHeapsType);
 
-    virtual void Process_ID3D11Device_CheckFeatureSupport(const ApiCallInfo& call_info,
-                                                          format::HandleId   object_id,
-                                                          HRESULT            return_value,
-                                                          D3D11_FEATURE      feature,
-                                                          const void*        capture_feature_data,
-                                                          void*              replay_feature_data,
-                                                          UINT               feature_data_size) override;
+    virtual void Process_ID3D11Device_CheckFeatureSupport(const ApiCallInfo&    call_info,
+                                                          format::HandleId      object_id,
+                                                          HRESULT               return_value,
+                                                          D3D11_FEATURE         feature,
+                                                          DxFeatureDataDecoder* feature_data,
+                                                          UINT                  feature_data_size) override;
 
     virtual void Process_ID3D11Device_CreateBuffer(const ApiCallInfo&                                    call_info,
                                                    format::HandleId                                      object_id,
