@@ -28,6 +28,7 @@
 #ifndef  GFXRECON_GENERATED_DX12_WRAPPER_CREATORS_H
 #define  GFXRECON_GENERATED_DX12_WRAPPER_CREATORS_H
 
+#include "encode/custom_dx12_wrapper_creators.h"
 #include "encode/dx12_object_wrapper_resources.h"
 #include "util/defines.h"
 #include <unordered_map>
@@ -463,6 +464,7 @@ const std::unordered_map<IID, std::function<void(REFIID, void**,DxWrapperResourc
     { IID_ID3D11VideoContext1, WrapID3D11VideoContext },
     { IID_ID3D11VideoContext2, WrapID3D11VideoContext },
     { IID_ID3D11VideoContext3, WrapID3D11VideoContext },
+    { IID_ID3D11Resource, WrapID3D11Resource },
 };
 
 GFXRECON_END_NAMESPACE(encode)
