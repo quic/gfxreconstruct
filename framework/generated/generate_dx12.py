@@ -86,11 +86,17 @@ DX12_SOURCE_LIST = [
     'd3d12sdklayers.h',
 ]
 
+DX11_SOURCE_LIST = [
+    'um\\d3d11.h',
+    'um\\d3d11_1.h',
+    'um\\d3d11_2.h'
+]
+
 # The second value is required data. It only generates required data.
 WINAPI_SOURCE_LIST = [
     ['um\\Unknwnbase.h', ['IUnknown']],
     ['shared\\guiddef.h', ['GUID']],
-    ['shared\\windef.h', ['tagRECT', 'tagPOINT']],
+    ['shared\\windef.h', ['tagRECT', 'tagPOINT', 'tagSIZE']],
     ['um\\minwinbase.h', ['_SECURITY_ATTRIBUTES']],
 ]
 
@@ -154,6 +160,15 @@ if __name__ == '__main__':
     for source in DX12_SOURCE_LIST:
         source_file = os.path.join(SCRIPT_DIR, '..', '..', 'external', 'AgilitySDK', 'inc', source)
 
+        print('Parsing', source_file)
+        header = Dx12CppHeader(source_file, anon_union_counter)
+        anon_union_counter = header.anon_union_count
+        header_dict[source[source.find('\\') + 1:]] = header
+
+    for source in DX11_SOURCE_LIST:
+        source_file = os.path.join(
+            WINDOWS_SDK_DIR + 'Include\\' + WINDOWS_SDK_VERSION, source
+        )
         print('Parsing', source_file)
         header = Dx12CppHeader(source_file, anon_union_counter)
         anon_union_counter = header.anon_union_count

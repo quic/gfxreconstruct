@@ -2,6 +2,7 @@
 #
 # Copyright (c) 2021 LunarG, Inc.
 # Copyright (c) 2023 Advanced Micro Devices, Inc. All rights reserved.
+# Copyright (c) 2023 Qualcomm Innovation Center, Inc. All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to
@@ -77,7 +78,7 @@ class Dx12BaseGenerator(BaseGenerator):
     CONVERT_FUNCTION_LIST = [
         [['BYTE', 'byte', 'UINT8', 'unsigned char'], 'UInt8'],
         [['INT8'], 'Int8'],
-        [['UINT16', 'unsigned short'], 'UInt16'],
+        [['USHORT','UINT16', 'unsigned short'], 'UInt16'],
         [['SHORT'], 'Int16'],
         [
             [
@@ -86,7 +87,7 @@ class Dx12BaseGenerator(BaseGenerator):
             ], 'UInt32'
         ],
         [['HRESULT', 'LONG', 'BOOL', 'INT', 'int'], 'Int32'],
-        [['UINT64', 'D3D12_GPU_VIRTUAL_ADDRESS'], 'UInt64'],
+        [['ULONGLONG', 'UINT64', 'D3D12_GPU_VIRTUAL_ADDRESS'], 'UInt64'],
         [['LONG_PTR', 'SIZE_T'], 'SizeT'],
         [['FLOAT', 'float'], 'Float'],
         [['void'], 'Void'],
@@ -202,7 +203,11 @@ class Dx12BaseGenerator(BaseGenerator):
             ):
                 if rtn:
                     rtn += ' '
-                rtn += t
+
+                if t == 'CONST':
+                    rtn += 'const'
+                else:
+                    rtn += t
         return rtn
 
     def get_return_value_info(self, param_type, function_name):
@@ -596,20 +601,17 @@ class Dx12BaseGenerator(BaseGenerator):
         return None
 
     def is_union(self, type):
-        if type[:12] == '<anon-union-':
-            union_dict = self.source_dict['union_dict']
-            return type in union_dict
-        return False
+        union_dict = self.source_dict['union_dict']
+        return type in union_dict
 
     def get_union_members(self, type):
-        if type[:12] == '<anon-union-':
-            union_dict = self.source_dict['union_dict']
-            union_info = union_dict.get(type)
-            if union_info:
-                members = list()
-                for m in union_info['members']:
-                    members.append(self.get_value_info(m))
-                return members
+        union_dict = self.source_dict['union_dict']
+        union_info = union_dict.get(type)
+        if union_info:
+            members = list()
+            for m in union_info['members']:
+                members.append(self.get_value_info(m))
+            return members
         return None
 
     def convert_function(self, type):
@@ -628,7 +630,8 @@ class Dx12BaseGenerator(BaseGenerator):
         else:
             union = self.is_union(type)
             if union:
-                type = 'Union'
+                # Union types are processed as struct types.
+                type = 'Struct'
         return type
 
     def is_required_function_data(self, function_source_data):
