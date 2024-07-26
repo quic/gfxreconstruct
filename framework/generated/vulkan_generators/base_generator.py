@@ -1241,7 +1241,7 @@ class BaseGenerator(OutputGenerator):
         if value.is_pointer or value.is_array:
             count = value.pointer_count
 
-            if self.is_struct(type_name):
+            if self.is_struct(type_name) or self.is_union(type_name):
                 if (
                     self.is_dx12_class() and
                     (value.array_dimension and value.array_dimension == 1)
@@ -1289,7 +1289,7 @@ class BaseGenerator(OutputGenerator):
         elif self.is_function_ptr(type_name):
             # Function pointers are encoded as a 64-bit address value.
             type_name = 'uint64_t'
-        elif self.is_struct(type_name):
+        elif self.is_struct(type_name) or self.is_union(type_name):
             type_name = 'Decoded_{}'.format(type_name)
         elif self.is_handle(type_name):
             type_name = 'format::HandleId'
