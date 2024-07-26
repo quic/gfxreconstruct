@@ -543,20 +543,22 @@ uint64_t D3D12CaptureManager::GetResourceSizeInBytes(ID3D12Device8_Wrapper*     
     return graphics::dx12::GetResourceSizeInBytes(device, desc);
 }
 
-void D3D12CaptureManager::ProcessMappedMemory()
+void D3D12CaptureManager::ProcessMappedMemory(format::ApiFamilyId api_family)
 {
     if (GetMemoryTrackingMode() == CaptureSettings::MemoryTrackingMode::kPageGuard)
     {
         util::PageGuardManager* manager = util::PageGuardManager::Get();
         assert(manager != nullptr);
 
-        manager->ProcessMemoryEntries([this](uint64_t memory_id, void* start_address, size_t offset, size_t size) {
+        manager->ProcessMemoryEntries([this, api_family](
+                                          uint64_t memory_id, void* start_address, size_t offset, size_t size) {
             if (RvAnnotationActive() == true)
             {
                 resource_value_annotator_->ScanForGPUVA(
                     memory_id, reinterpret_cast<uint8_t*>(start_address) + offset, size, offset);
             }
-            WriteFillMemoryCmd(memory_id, offset, size, start_address);
+
+            WriteFillMemoryCmd(api_family, memory_id, offset, size, start_address);
         });
     }
     else if (GetMemoryTrackingMode() == CaptureSettings::MemoryTrackingMode::kUnassisted)
@@ -583,8 +585,11 @@ void D3D12CaptureManager::ProcessMappedMemory()
                                                                 size,
                                                                 0);
                     }
-                    WriteFillMemoryCmd(
-                        reinterpret_cast<uint64_t>(mapped_subresource.data), 0, size, mapped_subresource.data);
+                    WriteFillMemoryCmd(api_family,
+                                       reinterpret_cast<uint64_t>(mapped_subresource.data),
+                                       0,
+                                       size,
+                                       mapped_subresource.data);
                 }
             }
         }
@@ -1835,7 +1840,7 @@ void D3D12CaptureManager::PreProcess_ID3D12CommandQueue_ExecuteCommandLists(ID3D
     GFXRECON_UNREFERENCED_PARAMETER(wrapper);
     GFXRECON_UNREFERENCED_PARAMETER(num_lists);
     GFXRECON_UNREFERENCED_PARAMETER(lists);
-    ProcessMappedMemory();
+    ProcessMappedMemory(format::ApiFamilyId::ApiFamily_D3D12);
     PreQueueSubmit();
 }
 
@@ -3440,7 +3445,8 @@ void D3D12CaptureManager::PostProcess_ID3D11DeviceContext_Map(ID3D11DeviceContex
                             manager->ProcessMemoryEntry(
                                 mapped_subresource.tracker_id,
                                 [this](uint64_t memory_id, void* start_address, size_t offset, size_t size) {
-                                    WriteFillMemoryCmd(memory_id, offset, size, start_address);
+                                    WriteFillMemoryCmd(
+                                        format::ApiFamilyId::ApiFamily_D3D11, memory_id, offset, size, start_address);
                                 });
 
                             // Update the memory ID and pointer that will be written to the capture file with the
@@ -3499,7 +3505,8 @@ void D3D12CaptureManager::PreProcess_ID3D11DeviceContext_Unmap(ID3D11DeviceConte
                             manager->ProcessMemoryEntry(
                                 mapped_subresource.tracker_id,
                                 [this](uint64_t memory_id, void* start_address, size_t offset, size_t size) {
-                                    WriteFillMemoryCmd(memory_id, offset, size, start_address);
+                                    WriteFillMemoryCmd(
+                                        format::ApiFamilyId::ApiFamily_D3D11, memory_id, offset, size, start_address);
                                 });
 
                             // Persistent allocations created for D3D11_MAP_DISCARD and D3D11_MAP_NO_OVERWRITE will stay
@@ -3519,7 +3526,8 @@ void D3D12CaptureManager::PreProcess_ID3D11DeviceContext_Unmap(ID3D11DeviceConte
                             uint64_t offset = 0;
                             uint64_t size   = info->subresource_sizes[subresource];
 
-                            WriteFillMemoryCmd(reinterpret_cast<uint64_t>(mapped_subresource.data),
+                            WriteFillMemoryCmd(format::ApiFamilyId::ApiFamily_D3D11,
+                                               reinterpret_cast<uint64_t>(mapped_subresource.data),
                                                offset,
                                                size,
                                                mapped_subresource.data);
@@ -3556,7 +3564,7 @@ void D3D12CaptureManager::PreProcess_ID3D11DeviceContext_Dispatch(ID3D11DeviceCo
     GFXRECON_UNREFERENCED_PARAMETER(thread_group_count_x);
     GFXRECON_UNREFERENCED_PARAMETER(thread_group_count_y);
     GFXRECON_UNREFERENCED_PARAMETER(thread_group_count_z);
-    ProcessMappedMemory();
+    ProcessMappedMemory(format::ApiFamilyId::ApiFamily_D3D11);
 }
 
 void D3D12CaptureManager::PreProcess_ID3D11DeviceContext_DispatchIndirect(ID3D11DeviceContext_Wrapper* wrapper,
@@ -3566,7 +3574,7 @@ void D3D12CaptureManager::PreProcess_ID3D11DeviceContext_DispatchIndirect(ID3D11
     GFXRECON_UNREFERENCED_PARAMETER(wrapper);
     GFXRECON_UNREFERENCED_PARAMETER(buffer_for_args);
     GFXRECON_UNREFERENCED_PARAMETER(aligned_byte_offset_for_args);
-    ProcessMappedMemory();
+    ProcessMappedMemory(format::ApiFamilyId::ApiFamily_D3D11);
 }
 
 void D3D12CaptureManager::PreProcess_ID3D11DeviceContext_Draw(ID3D11DeviceContext_Wrapper* wrapper,
@@ -3576,13 +3584,13 @@ void D3D12CaptureManager::PreProcess_ID3D11DeviceContext_Draw(ID3D11DeviceContex
     GFXRECON_UNREFERENCED_PARAMETER(wrapper);
     GFXRECON_UNREFERENCED_PARAMETER(vertex_count);
     GFXRECON_UNREFERENCED_PARAMETER(start_vertex_location);
-    ProcessMappedMemory();
+    ProcessMappedMemory(format::ApiFamilyId::ApiFamily_D3D11);
 }
 
 void D3D12CaptureManager::PreProcess_ID3D11DeviceContext_DrawAuto(ID3D11DeviceContext_Wrapper* wrapper)
 {
     GFXRECON_UNREFERENCED_PARAMETER(wrapper);
-    ProcessMappedMemory();
+    ProcessMappedMemory(format::ApiFamilyId::ApiFamily_D3D11);
 }
 
 void D3D12CaptureManager::PreProcess_ID3D11DeviceContext_DrawIndexed(ID3D11DeviceContext_Wrapper* wrapper,
@@ -3594,7 +3602,7 @@ void D3D12CaptureManager::PreProcess_ID3D11DeviceContext_DrawIndexed(ID3D11Devic
     GFXRECON_UNREFERENCED_PARAMETER(index_count);
     GFXRECON_UNREFERENCED_PARAMETER(start_index_location);
     GFXRECON_UNREFERENCED_PARAMETER(base_vertex_location);
-    ProcessMappedMemory();
+    ProcessMappedMemory(format::ApiFamilyId::ApiFamily_D3D11);
 }
 
 void D3D12CaptureManager::PreProcess_ID3D11DeviceContext_DrawIndexedInstanced(ID3D11DeviceContext_Wrapper* wrapper,
@@ -3610,7 +3618,7 @@ void D3D12CaptureManager::PreProcess_ID3D11DeviceContext_DrawIndexedInstanced(ID
     GFXRECON_UNREFERENCED_PARAMETER(start_index_location);
     GFXRECON_UNREFERENCED_PARAMETER(base_vertex_location);
     GFXRECON_UNREFERENCED_PARAMETER(start_instance_location);
-    ProcessMappedMemory();
+    ProcessMappedMemory(format::ApiFamilyId::ApiFamily_D3D11);
 }
 
 void D3D12CaptureManager::PreProcess_ID3D11DeviceContext_DrawIndexedInstancedIndirect(
@@ -3619,7 +3627,7 @@ void D3D12CaptureManager::PreProcess_ID3D11DeviceContext_DrawIndexedInstancedInd
     GFXRECON_UNREFERENCED_PARAMETER(wrapper);
     GFXRECON_UNREFERENCED_PARAMETER(buffer_for_args);
     GFXRECON_UNREFERENCED_PARAMETER(aligned_byte_offset_for_args);
-    ProcessMappedMemory();
+    ProcessMappedMemory(format::ApiFamilyId::ApiFamily_D3D11);
 }
 
 void D3D12CaptureManager::PreProcess_ID3D11DeviceContext_DrawInstanced(ID3D11DeviceContext_Wrapper* wrapper,
@@ -3633,7 +3641,7 @@ void D3D12CaptureManager::PreProcess_ID3D11DeviceContext_DrawInstanced(ID3D11Dev
     GFXRECON_UNREFERENCED_PARAMETER(instance_count);
     GFXRECON_UNREFERENCED_PARAMETER(start_vertex_location);
     GFXRECON_UNREFERENCED_PARAMETER(start_instance_location);
-    ProcessMappedMemory();
+    ProcessMappedMemory(format::ApiFamilyId::ApiFamily_D3D11);
 }
 
 void D3D12CaptureManager::PreProcess_ID3D11DeviceContext_DrawInstancedIndirect(ID3D11DeviceContext_Wrapper* wrapper,
@@ -3643,7 +3651,7 @@ void D3D12CaptureManager::PreProcess_ID3D11DeviceContext_DrawInstancedIndirect(I
     GFXRECON_UNREFERENCED_PARAMETER(wrapper);
     GFXRECON_UNREFERENCED_PARAMETER(buffer_for_args);
     GFXRECON_UNREFERENCED_PARAMETER(aligned_byte_offset_for_args);
-    ProcessMappedMemory();
+    ProcessMappedMemory(format::ApiFamilyId::ApiFamily_D3D11);
 }
 
 void D3D12CaptureManager::AddViewResourceRef(ID3D11ViewInfo* info, ID3D11Resource* resource)
