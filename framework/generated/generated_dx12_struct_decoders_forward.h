@@ -463,6 +463,19 @@ struct Decoded_D3D11_TILE_REGION_SIZE;
 struct Decoded_D3D11_SUBRESOURCE_TILING;
 struct Decoded_D3D11_TILE_SHAPE;
 struct Decoded_D3D11_PACKED_MIP_DESC;
+struct Decoded_D3D11_TEXTURE2D_DESC1;
+struct Decoded_D3D11_TEXTURE3D_DESC1;
+struct Decoded_D3D11_RASTERIZER_DESC2;
+struct Decoded_D3D11_TEX2D_SRV1;
+struct Decoded_D3D11_TEX2D_ARRAY_SRV1;
+struct Decoded_D3D11_SHADER_RESOURCE_VIEW_DESC1;
+struct Decoded_D3D11_TEX2D_RTV1;
+struct Decoded_D3D11_TEX2D_ARRAY_RTV1;
+struct Decoded_D3D11_RENDER_TARGET_VIEW_DESC1;
+struct Decoded_D3D11_TEX2D_UAV1;
+struct Decoded_D3D11_TEX2D_ARRAY_UAV1;
+struct Decoded_D3D11_UNORDERED_ACCESS_VIEW_DESC1;
+struct Decoded_D3D11_QUERY_DESC1;
 struct Decoded_GUID;
 struct Decoded_tagRECT;
 struct Decoded_tagPOINT;
@@ -1313,6 +1326,30 @@ size_t DecodeStruct(const uint8_t* buffer, size_t buffer_size, Decoded_D3D11_SUB
 size_t DecodeStruct(const uint8_t* buffer, size_t buffer_size, Decoded_D3D11_TILE_SHAPE* wrapper);
 
 size_t DecodeStruct(const uint8_t* buffer, size_t buffer_size, Decoded_D3D11_PACKED_MIP_DESC* wrapper);
+
+/*
+** This part is generated from d3d11_3.h in Windows SDK: 10.0.20348.0
+**
+*/
+size_t DecodeStruct(const uint8_t* buffer, size_t buffer_size, Decoded_D3D11_TEXTURE2D_DESC1* wrapper);
+
+size_t DecodeStruct(const uint8_t* buffer, size_t buffer_size, Decoded_D3D11_TEXTURE3D_DESC1* wrapper);
+
+size_t DecodeStruct(const uint8_t* buffer, size_t buffer_size, Decoded_D3D11_RASTERIZER_DESC2* wrapper);
+
+size_t DecodeStruct(const uint8_t* buffer, size_t buffer_size, Decoded_D3D11_TEX2D_SRV1* wrapper);
+
+size_t DecodeStruct(const uint8_t* buffer, size_t buffer_size, Decoded_D3D11_TEX2D_ARRAY_SRV1* wrapper);
+
+size_t DecodeStruct(const uint8_t* buffer, size_t buffer_size, Decoded_D3D11_TEX2D_RTV1* wrapper);
+
+size_t DecodeStruct(const uint8_t* buffer, size_t buffer_size, Decoded_D3D11_TEX2D_ARRAY_RTV1* wrapper);
+
+size_t DecodeStruct(const uint8_t* buffer, size_t buffer_size, Decoded_D3D11_TEX2D_UAV1* wrapper);
+
+size_t DecodeStruct(const uint8_t* buffer, size_t buffer_size, Decoded_D3D11_TEX2D_ARRAY_UAV1* wrapper);
+
+size_t DecodeStruct(const uint8_t* buffer, size_t buffer_size, Decoded_D3D11_QUERY_DESC1* wrapper);
 
 /*
 ** This part is generated from guiddef.h in Windows SDK: 10.0.20348.0

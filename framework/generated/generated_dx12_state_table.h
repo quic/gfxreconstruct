@@ -99,12 +99,7 @@ class Dx12StateTable : public Dx12StateTableBase
     bool InsertWrapper(format::HandleId id, ID3D11DepthStencilState_Wrapper* wrapper) { return InsertEntry(id, wrapper, ID3D11DepthStencilState_Wrapper_map_); }
     bool InsertWrapper(format::HandleId id, ID3D11Buffer_Wrapper* wrapper) { return InsertEntry(id, wrapper, ID3D11Buffer_Wrapper_map_); }
     bool InsertWrapper(format::HandleId id, ID3D11Texture1D_Wrapper* wrapper) { return InsertEntry(id, wrapper, ID3D11Texture1D_Wrapper_map_); }
-    bool InsertWrapper(format::HandleId id, ID3D11Texture2D_Wrapper* wrapper) { return InsertEntry(id, wrapper, ID3D11Texture2D_Wrapper_map_); }
-    bool InsertWrapper(format::HandleId id, ID3D11Texture3D_Wrapper* wrapper) { return InsertEntry(id, wrapper, ID3D11Texture3D_Wrapper_map_); }
-    bool InsertWrapper(format::HandleId id, ID3D11ShaderResourceView_Wrapper* wrapper) { return InsertEntry(id, wrapper, ID3D11ShaderResourceView_Wrapper_map_); }
-    bool InsertWrapper(format::HandleId id, ID3D11RenderTargetView_Wrapper* wrapper) { return InsertEntry(id, wrapper, ID3D11RenderTargetView_Wrapper_map_); }
     bool InsertWrapper(format::HandleId id, ID3D11DepthStencilView_Wrapper* wrapper) { return InsertEntry(id, wrapper, ID3D11DepthStencilView_Wrapper_map_); }
-    bool InsertWrapper(format::HandleId id, ID3D11UnorderedAccessView_Wrapper* wrapper) { return InsertEntry(id, wrapper, ID3D11UnorderedAccessView_Wrapper_map_); }
     bool InsertWrapper(format::HandleId id, ID3D11VertexShader_Wrapper* wrapper) { return InsertEntry(id, wrapper, ID3D11VertexShader_Wrapper_map_); }
     bool InsertWrapper(format::HandleId id, ID3D11HullShader_Wrapper* wrapper) { return InsertEntry(id, wrapper, ID3D11HullShader_Wrapper_map_); }
     bool InsertWrapper(format::HandleId id, ID3D11DomainShader_Wrapper* wrapper) { return InsertEntry(id, wrapper, ID3D11DomainShader_Wrapper_map_); }
@@ -126,12 +121,19 @@ class Dx12StateTable : public Dx12StateTableBase
     bool InsertWrapper(format::HandleId id, ID3D11VideoProcessorInputView_Wrapper* wrapper) { return InsertEntry(id, wrapper, ID3D11VideoProcessorInputView_Wrapper_map_); }
     bool InsertWrapper(format::HandleId id, ID3D11VideoProcessorOutputView_Wrapper* wrapper) { return InsertEntry(id, wrapper, ID3D11VideoProcessorOutputView_Wrapper_map_); }
     bool InsertWrapper(format::HandleId id, ID3D11BlendState_Wrapper* wrapper) { return InsertEntry(id, wrapper, ID3D11BlendState_Wrapper_map_); }
-    bool InsertWrapper(format::HandleId id, ID3D11RasterizerState_Wrapper* wrapper) { return InsertEntry(id, wrapper, ID3D11RasterizerState_Wrapper_map_); }
     bool InsertWrapper(format::HandleId id, ID3DDeviceContextState_Wrapper* wrapper) { return InsertEntry(id, wrapper, ID3DDeviceContextState_Wrapper_map_); }
     bool InsertWrapper(format::HandleId id, ID3D11VideoContext_Wrapper* wrapper) { return InsertEntry(id, wrapper, ID3D11VideoContext_Wrapper_map_); }
     bool InsertWrapper(format::HandleId id, ID3D11VideoDevice_Wrapper* wrapper) { return InsertEntry(id, wrapper, ID3D11VideoDevice_Wrapper_map_); }
     bool InsertWrapper(format::HandleId id, ID3D11VideoProcessorEnumerator_Wrapper* wrapper) { return InsertEntry(id, wrapper, ID3D11VideoProcessorEnumerator_Wrapper_map_); }
     bool InsertWrapper(format::HandleId id, ID3DUserDefinedAnnotation_Wrapper* wrapper) { return InsertEntry(id, wrapper, ID3DUserDefinedAnnotation_Wrapper_map_); }
+    bool InsertWrapper(format::HandleId id, ID3D11Texture2D_Wrapper* wrapper) { return InsertEntry(id, wrapper, ID3D11Texture2D_Wrapper_map_); }
+    bool InsertWrapper(format::HandleId id, ID3D11Texture3D_Wrapper* wrapper) { return InsertEntry(id, wrapper, ID3D11Texture3D_Wrapper_map_); }
+    bool InsertWrapper(format::HandleId id, ID3D11RasterizerState_Wrapper* wrapper) { return InsertEntry(id, wrapper, ID3D11RasterizerState_Wrapper_map_); }
+    bool InsertWrapper(format::HandleId id, ID3D11ShaderResourceView_Wrapper* wrapper) { return InsertEntry(id, wrapper, ID3D11ShaderResourceView_Wrapper_map_); }
+    bool InsertWrapper(format::HandleId id, ID3D11RenderTargetView_Wrapper* wrapper) { return InsertEntry(id, wrapper, ID3D11RenderTargetView_Wrapper_map_); }
+    bool InsertWrapper(format::HandleId id, ID3D11UnorderedAccessView_Wrapper* wrapper) { return InsertEntry(id, wrapper, ID3D11UnorderedAccessView_Wrapper_map_); }
+    bool InsertWrapper(format::HandleId id, ID3D11Query_Wrapper* wrapper) { return InsertEntry(id, wrapper, ID3D11Query_Wrapper_map_); }
+    bool InsertWrapper(format::HandleId id, ID3D11Fence_Wrapper* wrapper) { return InsertEntry(id, wrapper, ID3D11Fence_Wrapper_map_); }
     bool InsertWrapper(format::HandleId id, ID3D11DeviceContext_Wrapper* wrapper) { return InsertEntry(id, wrapper, ID3D11DeviceContext_Wrapper_map_); }
     bool InsertWrapper(format::HandleId id, ID3D11Device_Wrapper* wrapper) { return InsertEntry(id, wrapper, ID3D11Device_Wrapper_map_); }
 
@@ -195,12 +197,7 @@ class Dx12StateTable : public Dx12StateTableBase
     bool RemoveWrapper(const ID3D11DepthStencilState_Wrapper* wrapper) { return RemoveEntry(wrapper, ID3D11DepthStencilState_Wrapper_map_); }
     bool RemoveWrapper(const ID3D11Buffer_Wrapper* wrapper) { return RemoveEntry(wrapper, ID3D11Buffer_Wrapper_map_); }
     bool RemoveWrapper(const ID3D11Texture1D_Wrapper* wrapper) { return RemoveEntry(wrapper, ID3D11Texture1D_Wrapper_map_); }
-    bool RemoveWrapper(const ID3D11Texture2D_Wrapper* wrapper) { return RemoveEntry(wrapper, ID3D11Texture2D_Wrapper_map_); }
-    bool RemoveWrapper(const ID3D11Texture3D_Wrapper* wrapper) { return RemoveEntry(wrapper, ID3D11Texture3D_Wrapper_map_); }
-    bool RemoveWrapper(const ID3D11ShaderResourceView_Wrapper* wrapper) { return RemoveEntry(wrapper, ID3D11ShaderResourceView_Wrapper_map_); }
-    bool RemoveWrapper(const ID3D11RenderTargetView_Wrapper* wrapper) { return RemoveEntry(wrapper, ID3D11RenderTargetView_Wrapper_map_); }
     bool RemoveWrapper(const ID3D11DepthStencilView_Wrapper* wrapper) { return RemoveEntry(wrapper, ID3D11DepthStencilView_Wrapper_map_); }
-    bool RemoveWrapper(const ID3D11UnorderedAccessView_Wrapper* wrapper) { return RemoveEntry(wrapper, ID3D11UnorderedAccessView_Wrapper_map_); }
     bool RemoveWrapper(const ID3D11VertexShader_Wrapper* wrapper) { return RemoveEntry(wrapper, ID3D11VertexShader_Wrapper_map_); }
     bool RemoveWrapper(const ID3D11HullShader_Wrapper* wrapper) { return RemoveEntry(wrapper, ID3D11HullShader_Wrapper_map_); }
     bool RemoveWrapper(const ID3D11DomainShader_Wrapper* wrapper) { return RemoveEntry(wrapper, ID3D11DomainShader_Wrapper_map_); }
@@ -222,12 +219,19 @@ class Dx12StateTable : public Dx12StateTableBase
     bool RemoveWrapper(const ID3D11VideoProcessorInputView_Wrapper* wrapper) { return RemoveEntry(wrapper, ID3D11VideoProcessorInputView_Wrapper_map_); }
     bool RemoveWrapper(const ID3D11VideoProcessorOutputView_Wrapper* wrapper) { return RemoveEntry(wrapper, ID3D11VideoProcessorOutputView_Wrapper_map_); }
     bool RemoveWrapper(const ID3D11BlendState_Wrapper* wrapper) { return RemoveEntry(wrapper, ID3D11BlendState_Wrapper_map_); }
-    bool RemoveWrapper(const ID3D11RasterizerState_Wrapper* wrapper) { return RemoveEntry(wrapper, ID3D11RasterizerState_Wrapper_map_); }
     bool RemoveWrapper(const ID3DDeviceContextState_Wrapper* wrapper) { return RemoveEntry(wrapper, ID3DDeviceContextState_Wrapper_map_); }
     bool RemoveWrapper(const ID3D11VideoContext_Wrapper* wrapper) { return RemoveEntry(wrapper, ID3D11VideoContext_Wrapper_map_); }
     bool RemoveWrapper(const ID3D11VideoDevice_Wrapper* wrapper) { return RemoveEntry(wrapper, ID3D11VideoDevice_Wrapper_map_); }
     bool RemoveWrapper(const ID3D11VideoProcessorEnumerator_Wrapper* wrapper) { return RemoveEntry(wrapper, ID3D11VideoProcessorEnumerator_Wrapper_map_); }
     bool RemoveWrapper(const ID3DUserDefinedAnnotation_Wrapper* wrapper) { return RemoveEntry(wrapper, ID3DUserDefinedAnnotation_Wrapper_map_); }
+    bool RemoveWrapper(const ID3D11Texture2D_Wrapper* wrapper) { return RemoveEntry(wrapper, ID3D11Texture2D_Wrapper_map_); }
+    bool RemoveWrapper(const ID3D11Texture3D_Wrapper* wrapper) { return RemoveEntry(wrapper, ID3D11Texture3D_Wrapper_map_); }
+    bool RemoveWrapper(const ID3D11RasterizerState_Wrapper* wrapper) { return RemoveEntry(wrapper, ID3D11RasterizerState_Wrapper_map_); }
+    bool RemoveWrapper(const ID3D11ShaderResourceView_Wrapper* wrapper) { return RemoveEntry(wrapper, ID3D11ShaderResourceView_Wrapper_map_); }
+    bool RemoveWrapper(const ID3D11RenderTargetView_Wrapper* wrapper) { return RemoveEntry(wrapper, ID3D11RenderTargetView_Wrapper_map_); }
+    bool RemoveWrapper(const ID3D11UnorderedAccessView_Wrapper* wrapper) { return RemoveEntry(wrapper, ID3D11UnorderedAccessView_Wrapper_map_); }
+    bool RemoveWrapper(const ID3D11Query_Wrapper* wrapper) { return RemoveEntry(wrapper, ID3D11Query_Wrapper_map_); }
+    bool RemoveWrapper(const ID3D11Fence_Wrapper* wrapper) { return RemoveEntry(wrapper, ID3D11Fence_Wrapper_map_); }
     bool RemoveWrapper(const ID3D11DeviceContext_Wrapper* wrapper) { return RemoveEntry(wrapper, ID3D11DeviceContext_Wrapper_map_); }
     bool RemoveWrapper(const ID3D11Device_Wrapper* wrapper) { return RemoveEntry(wrapper, ID3D11Device_Wrapper_map_); }
 
@@ -291,12 +295,7 @@ class Dx12StateTable : public Dx12StateTableBase
     void VisitWrappers(std::function<void(ID3D11DepthStencilState_Wrapper*)> visitor) const { for (auto entry : ID3D11DepthStencilState_Wrapper_map_) { visitor(entry.second); } }
     void VisitWrappers(std::function<void(ID3D11Buffer_Wrapper*)> visitor) const { for (auto entry : ID3D11Buffer_Wrapper_map_) { visitor(entry.second); } }
     void VisitWrappers(std::function<void(ID3D11Texture1D_Wrapper*)> visitor) const { for (auto entry : ID3D11Texture1D_Wrapper_map_) { visitor(entry.second); } }
-    void VisitWrappers(std::function<void(ID3D11Texture2D_Wrapper*)> visitor) const { for (auto entry : ID3D11Texture2D_Wrapper_map_) { visitor(entry.second); } }
-    void VisitWrappers(std::function<void(ID3D11Texture3D_Wrapper*)> visitor) const { for (auto entry : ID3D11Texture3D_Wrapper_map_) { visitor(entry.second); } }
-    void VisitWrappers(std::function<void(ID3D11ShaderResourceView_Wrapper*)> visitor) const { for (auto entry : ID3D11ShaderResourceView_Wrapper_map_) { visitor(entry.second); } }
-    void VisitWrappers(std::function<void(ID3D11RenderTargetView_Wrapper*)> visitor) const { for (auto entry : ID3D11RenderTargetView_Wrapper_map_) { visitor(entry.second); } }
     void VisitWrappers(std::function<void(ID3D11DepthStencilView_Wrapper*)> visitor) const { for (auto entry : ID3D11DepthStencilView_Wrapper_map_) { visitor(entry.second); } }
-    void VisitWrappers(std::function<void(ID3D11UnorderedAccessView_Wrapper*)> visitor) const { for (auto entry : ID3D11UnorderedAccessView_Wrapper_map_) { visitor(entry.second); } }
     void VisitWrappers(std::function<void(ID3D11VertexShader_Wrapper*)> visitor) const { for (auto entry : ID3D11VertexShader_Wrapper_map_) { visitor(entry.second); } }
     void VisitWrappers(std::function<void(ID3D11HullShader_Wrapper*)> visitor) const { for (auto entry : ID3D11HullShader_Wrapper_map_) { visitor(entry.second); } }
     void VisitWrappers(std::function<void(ID3D11DomainShader_Wrapper*)> visitor) const { for (auto entry : ID3D11DomainShader_Wrapper_map_) { visitor(entry.second); } }
@@ -318,12 +317,19 @@ class Dx12StateTable : public Dx12StateTableBase
     void VisitWrappers(std::function<void(ID3D11VideoProcessorInputView_Wrapper*)> visitor) const { for (auto entry : ID3D11VideoProcessorInputView_Wrapper_map_) { visitor(entry.second); } }
     void VisitWrappers(std::function<void(ID3D11VideoProcessorOutputView_Wrapper*)> visitor) const { for (auto entry : ID3D11VideoProcessorOutputView_Wrapper_map_) { visitor(entry.second); } }
     void VisitWrappers(std::function<void(ID3D11BlendState_Wrapper*)> visitor) const { for (auto entry : ID3D11BlendState_Wrapper_map_) { visitor(entry.second); } }
-    void VisitWrappers(std::function<void(ID3D11RasterizerState_Wrapper*)> visitor) const { for (auto entry : ID3D11RasterizerState_Wrapper_map_) { visitor(entry.second); } }
     void VisitWrappers(std::function<void(ID3DDeviceContextState_Wrapper*)> visitor) const { for (auto entry : ID3DDeviceContextState_Wrapper_map_) { visitor(entry.second); } }
     void VisitWrappers(std::function<void(ID3D11VideoContext_Wrapper*)> visitor) const { for (auto entry : ID3D11VideoContext_Wrapper_map_) { visitor(entry.second); } }
     void VisitWrappers(std::function<void(ID3D11VideoDevice_Wrapper*)> visitor) const { for (auto entry : ID3D11VideoDevice_Wrapper_map_) { visitor(entry.second); } }
     void VisitWrappers(std::function<void(ID3D11VideoProcessorEnumerator_Wrapper*)> visitor) const { for (auto entry : ID3D11VideoProcessorEnumerator_Wrapper_map_) { visitor(entry.second); } }
     void VisitWrappers(std::function<void(ID3DUserDefinedAnnotation_Wrapper*)> visitor) const { for (auto entry : ID3DUserDefinedAnnotation_Wrapper_map_) { visitor(entry.second); } }
+    void VisitWrappers(std::function<void(ID3D11Texture2D_Wrapper*)> visitor) const { for (auto entry : ID3D11Texture2D_Wrapper_map_) { visitor(entry.second); } }
+    void VisitWrappers(std::function<void(ID3D11Texture3D_Wrapper*)> visitor) const { for (auto entry : ID3D11Texture3D_Wrapper_map_) { visitor(entry.second); } }
+    void VisitWrappers(std::function<void(ID3D11RasterizerState_Wrapper*)> visitor) const { for (auto entry : ID3D11RasterizerState_Wrapper_map_) { visitor(entry.second); } }
+    void VisitWrappers(std::function<void(ID3D11ShaderResourceView_Wrapper*)> visitor) const { for (auto entry : ID3D11ShaderResourceView_Wrapper_map_) { visitor(entry.second); } }
+    void VisitWrappers(std::function<void(ID3D11RenderTargetView_Wrapper*)> visitor) const { for (auto entry : ID3D11RenderTargetView_Wrapper_map_) { visitor(entry.second); } }
+    void VisitWrappers(std::function<void(ID3D11UnorderedAccessView_Wrapper*)> visitor) const { for (auto entry : ID3D11UnorderedAccessView_Wrapper_map_) { visitor(entry.second); } }
+    void VisitWrappers(std::function<void(ID3D11Query_Wrapper*)> visitor) const { for (auto entry : ID3D11Query_Wrapper_map_) { visitor(entry.second); } }
+    void VisitWrappers(std::function<void(ID3D11Fence_Wrapper*)> visitor) const { for (auto entry : ID3D11Fence_Wrapper_map_) { visitor(entry.second); } }
     void VisitWrappers(std::function<void(ID3D11DeviceContext_Wrapper*)> visitor) const { for (auto entry : ID3D11DeviceContext_Wrapper_map_) { visitor(entry.second); } }
     void VisitWrappers(std::function<void(ID3D11Device_Wrapper*)> visitor) const { for (auto entry : ID3D11Device_Wrapper_map_) { visitor(entry.second); } }
 
@@ -511,23 +517,8 @@ class Dx12StateTable : public Dx12StateTableBase
     ID3D11Texture1D_Wrapper* GetID3D11Texture1D_Wrapper(format::HandleId id) { return GetWrapper<ID3D11Texture1D_Wrapper>(id, ID3D11Texture1D_Wrapper_map_); }
     const ID3D11Texture1D_Wrapper* GetID3D11Texture1D_Wrapper(format::HandleId id) const { return GetWrapper<ID3D11Texture1D_Wrapper>(id, ID3D11Texture1D_Wrapper_map_); }
 
-    ID3D11Texture2D_Wrapper* GetID3D11Texture2D_Wrapper(format::HandleId id) { return GetWrapper<ID3D11Texture2D_Wrapper>(id, ID3D11Texture2D_Wrapper_map_); }
-    const ID3D11Texture2D_Wrapper* GetID3D11Texture2D_Wrapper(format::HandleId id) const { return GetWrapper<ID3D11Texture2D_Wrapper>(id, ID3D11Texture2D_Wrapper_map_); }
-
-    ID3D11Texture3D_Wrapper* GetID3D11Texture3D_Wrapper(format::HandleId id) { return GetWrapper<ID3D11Texture3D_Wrapper>(id, ID3D11Texture3D_Wrapper_map_); }
-    const ID3D11Texture3D_Wrapper* GetID3D11Texture3D_Wrapper(format::HandleId id) const { return GetWrapper<ID3D11Texture3D_Wrapper>(id, ID3D11Texture3D_Wrapper_map_); }
-
-    ID3D11ShaderResourceView_Wrapper* GetID3D11ShaderResourceView_Wrapper(format::HandleId id) { return GetWrapper<ID3D11ShaderResourceView_Wrapper>(id, ID3D11ShaderResourceView_Wrapper_map_); }
-    const ID3D11ShaderResourceView_Wrapper* GetID3D11ShaderResourceView_Wrapper(format::HandleId id) const { return GetWrapper<ID3D11ShaderResourceView_Wrapper>(id, ID3D11ShaderResourceView_Wrapper_map_); }
-
-    ID3D11RenderTargetView_Wrapper* GetID3D11RenderTargetView_Wrapper(format::HandleId id) { return GetWrapper<ID3D11RenderTargetView_Wrapper>(id, ID3D11RenderTargetView_Wrapper_map_); }
-    const ID3D11RenderTargetView_Wrapper* GetID3D11RenderTargetView_Wrapper(format::HandleId id) const { return GetWrapper<ID3D11RenderTargetView_Wrapper>(id, ID3D11RenderTargetView_Wrapper_map_); }
-
     ID3D11DepthStencilView_Wrapper* GetID3D11DepthStencilView_Wrapper(format::HandleId id) { return GetWrapper<ID3D11DepthStencilView_Wrapper>(id, ID3D11DepthStencilView_Wrapper_map_); }
     const ID3D11DepthStencilView_Wrapper* GetID3D11DepthStencilView_Wrapper(format::HandleId id) const { return GetWrapper<ID3D11DepthStencilView_Wrapper>(id, ID3D11DepthStencilView_Wrapper_map_); }
-
-    ID3D11UnorderedAccessView_Wrapper* GetID3D11UnorderedAccessView_Wrapper(format::HandleId id) { return GetWrapper<ID3D11UnorderedAccessView_Wrapper>(id, ID3D11UnorderedAccessView_Wrapper_map_); }
-    const ID3D11UnorderedAccessView_Wrapper* GetID3D11UnorderedAccessView_Wrapper(format::HandleId id) const { return GetWrapper<ID3D11UnorderedAccessView_Wrapper>(id, ID3D11UnorderedAccessView_Wrapper_map_); }
 
     ID3D11VertexShader_Wrapper* GetID3D11VertexShader_Wrapper(format::HandleId id) { return GetWrapper<ID3D11VertexShader_Wrapper>(id, ID3D11VertexShader_Wrapper_map_); }
     const ID3D11VertexShader_Wrapper* GetID3D11VertexShader_Wrapper(format::HandleId id) const { return GetWrapper<ID3D11VertexShader_Wrapper>(id, ID3D11VertexShader_Wrapper_map_); }
@@ -592,9 +583,6 @@ class Dx12StateTable : public Dx12StateTableBase
     ID3D11BlendState_Wrapper* GetID3D11BlendState_Wrapper(format::HandleId id) { return GetWrapper<ID3D11BlendState_Wrapper>(id, ID3D11BlendState_Wrapper_map_); }
     const ID3D11BlendState_Wrapper* GetID3D11BlendState_Wrapper(format::HandleId id) const { return GetWrapper<ID3D11BlendState_Wrapper>(id, ID3D11BlendState_Wrapper_map_); }
 
-    ID3D11RasterizerState_Wrapper* GetID3D11RasterizerState_Wrapper(format::HandleId id) { return GetWrapper<ID3D11RasterizerState_Wrapper>(id, ID3D11RasterizerState_Wrapper_map_); }
-    const ID3D11RasterizerState_Wrapper* GetID3D11RasterizerState_Wrapper(format::HandleId id) const { return GetWrapper<ID3D11RasterizerState_Wrapper>(id, ID3D11RasterizerState_Wrapper_map_); }
-
     ID3DDeviceContextState_Wrapper* GetID3DDeviceContextState_Wrapper(format::HandleId id) { return GetWrapper<ID3DDeviceContextState_Wrapper>(id, ID3DDeviceContextState_Wrapper_map_); }
     const ID3DDeviceContextState_Wrapper* GetID3DDeviceContextState_Wrapper(format::HandleId id) const { return GetWrapper<ID3DDeviceContextState_Wrapper>(id, ID3DDeviceContextState_Wrapper_map_); }
 
@@ -609,6 +597,30 @@ class Dx12StateTable : public Dx12StateTableBase
 
     ID3DUserDefinedAnnotation_Wrapper* GetID3DUserDefinedAnnotation_Wrapper(format::HandleId id) { return GetWrapper<ID3DUserDefinedAnnotation_Wrapper>(id, ID3DUserDefinedAnnotation_Wrapper_map_); }
     const ID3DUserDefinedAnnotation_Wrapper* GetID3DUserDefinedAnnotation_Wrapper(format::HandleId id) const { return GetWrapper<ID3DUserDefinedAnnotation_Wrapper>(id, ID3DUserDefinedAnnotation_Wrapper_map_); }
+
+    ID3D11Texture2D_Wrapper* GetID3D11Texture2D_Wrapper(format::HandleId id) { return GetWrapper<ID3D11Texture2D_Wrapper>(id, ID3D11Texture2D_Wrapper_map_); }
+    const ID3D11Texture2D_Wrapper* GetID3D11Texture2D_Wrapper(format::HandleId id) const { return GetWrapper<ID3D11Texture2D_Wrapper>(id, ID3D11Texture2D_Wrapper_map_); }
+
+    ID3D11Texture3D_Wrapper* GetID3D11Texture3D_Wrapper(format::HandleId id) { return GetWrapper<ID3D11Texture3D_Wrapper>(id, ID3D11Texture3D_Wrapper_map_); }
+    const ID3D11Texture3D_Wrapper* GetID3D11Texture3D_Wrapper(format::HandleId id) const { return GetWrapper<ID3D11Texture3D_Wrapper>(id, ID3D11Texture3D_Wrapper_map_); }
+
+    ID3D11RasterizerState_Wrapper* GetID3D11RasterizerState_Wrapper(format::HandleId id) { return GetWrapper<ID3D11RasterizerState_Wrapper>(id, ID3D11RasterizerState_Wrapper_map_); }
+    const ID3D11RasterizerState_Wrapper* GetID3D11RasterizerState_Wrapper(format::HandleId id) const { return GetWrapper<ID3D11RasterizerState_Wrapper>(id, ID3D11RasterizerState_Wrapper_map_); }
+
+    ID3D11ShaderResourceView_Wrapper* GetID3D11ShaderResourceView_Wrapper(format::HandleId id) { return GetWrapper<ID3D11ShaderResourceView_Wrapper>(id, ID3D11ShaderResourceView_Wrapper_map_); }
+    const ID3D11ShaderResourceView_Wrapper* GetID3D11ShaderResourceView_Wrapper(format::HandleId id) const { return GetWrapper<ID3D11ShaderResourceView_Wrapper>(id, ID3D11ShaderResourceView_Wrapper_map_); }
+
+    ID3D11RenderTargetView_Wrapper* GetID3D11RenderTargetView_Wrapper(format::HandleId id) { return GetWrapper<ID3D11RenderTargetView_Wrapper>(id, ID3D11RenderTargetView_Wrapper_map_); }
+    const ID3D11RenderTargetView_Wrapper* GetID3D11RenderTargetView_Wrapper(format::HandleId id) const { return GetWrapper<ID3D11RenderTargetView_Wrapper>(id, ID3D11RenderTargetView_Wrapper_map_); }
+
+    ID3D11UnorderedAccessView_Wrapper* GetID3D11UnorderedAccessView_Wrapper(format::HandleId id) { return GetWrapper<ID3D11UnorderedAccessView_Wrapper>(id, ID3D11UnorderedAccessView_Wrapper_map_); }
+    const ID3D11UnorderedAccessView_Wrapper* GetID3D11UnorderedAccessView_Wrapper(format::HandleId id) const { return GetWrapper<ID3D11UnorderedAccessView_Wrapper>(id, ID3D11UnorderedAccessView_Wrapper_map_); }
+
+    ID3D11Query_Wrapper* GetID3D11Query_Wrapper(format::HandleId id) { return GetWrapper<ID3D11Query_Wrapper>(id, ID3D11Query_Wrapper_map_); }
+    const ID3D11Query_Wrapper* GetID3D11Query_Wrapper(format::HandleId id) const { return GetWrapper<ID3D11Query_Wrapper>(id, ID3D11Query_Wrapper_map_); }
+
+    ID3D11Fence_Wrapper* GetID3D11Fence_Wrapper(format::HandleId id) { return GetWrapper<ID3D11Fence_Wrapper>(id, ID3D11Fence_Wrapper_map_); }
+    const ID3D11Fence_Wrapper* GetID3D11Fence_Wrapper(format::HandleId id) const { return GetWrapper<ID3D11Fence_Wrapper>(id, ID3D11Fence_Wrapper_map_); }
 
     ID3D11DeviceContext_Wrapper* GetID3D11DeviceContext_Wrapper(format::HandleId id) { return GetWrapper<ID3D11DeviceContext_Wrapper>(id, ID3D11DeviceContext_Wrapper_map_); }
     const ID3D11DeviceContext_Wrapper* GetID3D11DeviceContext_Wrapper(format::HandleId id) const { return GetWrapper<ID3D11DeviceContext_Wrapper>(id, ID3D11DeviceContext_Wrapper_map_); }
@@ -678,12 +690,7 @@ class Dx12StateTable : public Dx12StateTableBase
     std::map<format::HandleId, ID3D11DepthStencilState_Wrapper*> ID3D11DepthStencilState_Wrapper_map_;
     std::map<format::HandleId, ID3D11Buffer_Wrapper*> ID3D11Buffer_Wrapper_map_;
     std::map<format::HandleId, ID3D11Texture1D_Wrapper*> ID3D11Texture1D_Wrapper_map_;
-    std::map<format::HandleId, ID3D11Texture2D_Wrapper*> ID3D11Texture2D_Wrapper_map_;
-    std::map<format::HandleId, ID3D11Texture3D_Wrapper*> ID3D11Texture3D_Wrapper_map_;
-    std::map<format::HandleId, ID3D11ShaderResourceView_Wrapper*> ID3D11ShaderResourceView_Wrapper_map_;
-    std::map<format::HandleId, ID3D11RenderTargetView_Wrapper*> ID3D11RenderTargetView_Wrapper_map_;
     std::map<format::HandleId, ID3D11DepthStencilView_Wrapper*> ID3D11DepthStencilView_Wrapper_map_;
-    std::map<format::HandleId, ID3D11UnorderedAccessView_Wrapper*> ID3D11UnorderedAccessView_Wrapper_map_;
     std::map<format::HandleId, ID3D11VertexShader_Wrapper*> ID3D11VertexShader_Wrapper_map_;
     std::map<format::HandleId, ID3D11HullShader_Wrapper*> ID3D11HullShader_Wrapper_map_;
     std::map<format::HandleId, ID3D11DomainShader_Wrapper*> ID3D11DomainShader_Wrapper_map_;
@@ -705,12 +712,19 @@ class Dx12StateTable : public Dx12StateTableBase
     std::map<format::HandleId, ID3D11VideoProcessorInputView_Wrapper*> ID3D11VideoProcessorInputView_Wrapper_map_;
     std::map<format::HandleId, ID3D11VideoProcessorOutputView_Wrapper*> ID3D11VideoProcessorOutputView_Wrapper_map_;
     std::map<format::HandleId, ID3D11BlendState_Wrapper*> ID3D11BlendState_Wrapper_map_;
-    std::map<format::HandleId, ID3D11RasterizerState_Wrapper*> ID3D11RasterizerState_Wrapper_map_;
     std::map<format::HandleId, ID3DDeviceContextState_Wrapper*> ID3DDeviceContextState_Wrapper_map_;
     std::map<format::HandleId, ID3D11VideoContext_Wrapper*> ID3D11VideoContext_Wrapper_map_;
     std::map<format::HandleId, ID3D11VideoDevice_Wrapper*> ID3D11VideoDevice_Wrapper_map_;
     std::map<format::HandleId, ID3D11VideoProcessorEnumerator_Wrapper*> ID3D11VideoProcessorEnumerator_Wrapper_map_;
     std::map<format::HandleId, ID3DUserDefinedAnnotation_Wrapper*> ID3DUserDefinedAnnotation_Wrapper_map_;
+    std::map<format::HandleId, ID3D11Texture2D_Wrapper*> ID3D11Texture2D_Wrapper_map_;
+    std::map<format::HandleId, ID3D11Texture3D_Wrapper*> ID3D11Texture3D_Wrapper_map_;
+    std::map<format::HandleId, ID3D11RasterizerState_Wrapper*> ID3D11RasterizerState_Wrapper_map_;
+    std::map<format::HandleId, ID3D11ShaderResourceView_Wrapper*> ID3D11ShaderResourceView_Wrapper_map_;
+    std::map<format::HandleId, ID3D11RenderTargetView_Wrapper*> ID3D11RenderTargetView_Wrapper_map_;
+    std::map<format::HandleId, ID3D11UnorderedAccessView_Wrapper*> ID3D11UnorderedAccessView_Wrapper_map_;
+    std::map<format::HandleId, ID3D11Query_Wrapper*> ID3D11Query_Wrapper_map_;
+    std::map<format::HandleId, ID3D11Fence_Wrapper*> ID3D11Fence_Wrapper_map_;
     std::map<format::HandleId, ID3D11DeviceContext_Wrapper*> ID3D11DeviceContext_Wrapper_map_;
     std::map<format::HandleId, ID3D11Device_Wrapper*> ID3D11Device_Wrapper_map_;
 };

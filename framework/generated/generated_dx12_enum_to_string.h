@@ -43,6 +43,7 @@
 #include <d3d11.h>
 #include <d3d11_1.h>
 #include <d3d11_2.h>
+#include <d3d11_3.h>
 #include <Unknwnbase.h>
 #include <guiddef.h>
 #include <windef.h>
@@ -419,6 +420,10 @@ std::string ToString(D3D11_TILE_MAPPING_FLAG value);
 std::string ToString(D3D11_TILE_RANGE_FLAG value);
 std::string ToString(D3D11_CHECK_MULTISAMPLE_QUALITY_LEVELS_FLAG value);
 std::string ToString(D3D11_TILE_COPY_FLAG value);
+std::string ToString(D3D11_CONTEXT_TYPE value);
+std::string ToString(D3D11_TEXTURE_LAYOUT value);
+std::string ToString(D3D11_CONSERVATIVE_RASTERIZATION_MODE value);
+std::string ToString(D3D11_FENCE_FLAG value);
 std::string ToString(const IID& riid);
 inline std::string ToString(const GUID& obj, ToStringFlags toStringFlags, uint32_t tabCount, uint32_t tabSize){ return ToString(obj); }
 
