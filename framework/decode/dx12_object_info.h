@@ -252,7 +252,10 @@ struct DxgiSwapchainInfo : DxObjectExtraInfo
 
     graphics::dx12::ID3D12CommandQueueComPtr command_queue{
         nullptr
-    };                           ///< The command queue that was used to create the swapchain.
+    }; ///< The command queue that was used to create the swapchain for d3d12.
+    graphics::dx12::ID3D11DeviceComPtr device{
+        nullptr
+    };                           ///< The device that was used to create the swapchain for d3d11.
     bool is_fullscreen{ false }; ///< Swapchain full screen flag.
 };
 
