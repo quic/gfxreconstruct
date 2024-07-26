@@ -10021,7 +10021,7 @@ void Dx12ReplayConsumer::Process_ID3D12Device_GetResourceTiling(
         }
         if(!pSubresourceTilingsForNonPackedMips->IsNull())
         {
-            pSubresourceTilingsForNonPackedMips->AllocateOutputData(* pNumSubresourceTilings->GetPointer());
+            pSubresourceTilingsForNonPackedMips->AllocateOutputData(!pNumSubresourceTilings->IsNull() ? *pNumSubresourceTilings->GetPointer() : 0);
         }
         reinterpret_cast<ID3D12Device*>(replay_object->object)->GetResourceTiling(in_pTiledResource,
                                                                                   pNumTilesForEntireResource->GetOutputPointer(),
@@ -27505,7 +27505,7 @@ void Dx12ReplayConsumer::Process_ID3D11Device2_GetResourceTiling(
         }
         if(!pSubresourceTilingsForNonPackedMips->IsNull())
         {
-            pSubresourceTilingsForNonPackedMips->AllocateOutputData(* pNumSubresourceTilings->GetPointer());
+            pSubresourceTilingsForNonPackedMips->AllocateOutputData(!pNumSubresourceTilings->IsNull() ? *pNumSubresourceTilings->GetPointer() : 0);
         }
         reinterpret_cast<ID3D11Device2*>(replay_object->object)->GetResourceTiling(in_pTiledResource,
                                                                                    pNumTilesForEntireResource->GetOutputPointer(),
