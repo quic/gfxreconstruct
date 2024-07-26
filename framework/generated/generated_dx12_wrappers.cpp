@@ -30299,7 +30299,7 @@ HRESULT WINAPI D3D11CreateDevice(
             pFeatureLevel,
             ppImmediateContext);
 
-        result = manager->GetD3D11DispatchTable().D3D11CreateDevice(
+        result = D3D12CaptureManager::Get()->OverrideD3D11CreateDevice(
             encode::GetWrappedObject<IDXGIAdapter>(pAdapter),
             DriverType,
             Software,
@@ -30412,7 +30412,7 @@ HRESULT WINAPI D3D11CreateDeviceAndSwapChain(
             pFeatureLevel,
             ppImmediateContext);
 
-        result = manager->GetD3D11DispatchTable().D3D11CreateDeviceAndSwapChain(
+        result = D3D12CaptureManager::Get()->OverrideD3D11CreateDeviceAndSwapChain(
             encode::GetWrappedObject<IDXGIAdapter>(pAdapter),
             DriverType,
             Software,

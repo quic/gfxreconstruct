@@ -758,6 +758,30 @@ class D3D12CaptureManager : public ApiCaptureManager
         const D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS* pDesc,
         D3D12_RAYTRACING_ACCELERATION_STRUCTURE_PREBUILD_INFO*      pInfo);
 
+    HRESULT OverrideD3D11CreateDevice(IDXGIAdapter*            adapter,
+                                      D3D_DRIVER_TYPE          driver_type,
+                                      HMODULE                  software,
+                                      UINT                     flags,
+                                      const D3D_FEATURE_LEVEL* feature_levels,
+                                      UINT                     num_feature_levels,
+                                      UINT                     sdk_version,
+                                      ID3D11Device**           device,
+                                      D3D_FEATURE_LEVEL*       feature_level,
+                                      ID3D11DeviceContext**    immediate_context);
+
+    HRESULT OverrideD3D11CreateDeviceAndSwapChain(IDXGIAdapter*               adapter,
+                                                  D3D_DRIVER_TYPE             driver_type,
+                                                  HMODULE                     software,
+                                                  UINT                        flags,
+                                                  const D3D_FEATURE_LEVEL*    feature_levels,
+                                                  UINT                        num_feature_levels,
+                                                  UINT                        sdk_version,
+                                                  const DXGI_SWAP_CHAIN_DESC* swap_chain_desc,
+                                                  IDXGISwapChain**            swap_chain,
+                                                  ID3D11Device**              device,
+                                                  D3D_FEATURE_LEVEL*          feature_level,
+                                                  ID3D11DeviceContext**       immediate_context);
+
     virtual CaptureSettings::TraceSettings GetDefaultTraceSettings();
 
     inline format::HandleId GetEnableDebugLayerObjectId() { return track_enable_debug_layer_object_id_; }
