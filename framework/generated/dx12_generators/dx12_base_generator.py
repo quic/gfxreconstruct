@@ -717,6 +717,7 @@ class Dx12BaseGenerator(BaseGenerator):
                 )
 
     def is_output(self, value):
-        if value.full_type.find('_Out') != -1:
+        if (value.full_type.find('_Out') !=
+            -1) or (value.full_type.find('_Inout') != -1):
             return True
         return False
