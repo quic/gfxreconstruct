@@ -46,6 +46,7 @@
 #include <d3d11_1.h>
 #include <d3d11_2.h>
 #include <d3d11_3.h>
+#include <d3d11_4.h>
 #include <Unknwnbase.h>
 #include <guiddef.h>
 #include <windef.h>

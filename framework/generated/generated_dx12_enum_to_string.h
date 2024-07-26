@@ -44,6 +44,7 @@
 #include <d3d11_1.h>
 #include <d3d11_2.h>
 #include <d3d11_3.h>
+#include <d3d11_4.h>
 #include <Unknwnbase.h>
 #include <guiddef.h>
 #include <windef.h>
@@ -424,6 +425,12 @@ std::string ToString(D3D11_CONTEXT_TYPE value);
 std::string ToString(D3D11_TEXTURE_LAYOUT value);
 std::string ToString(D3D11_CONSERVATIVE_RASTERIZATION_MODE value);
 std::string ToString(D3D11_FENCE_FLAG value);
+std::string ToString(D3D11_FEATURE_VIDEO value);
+std::string ToString(D3D11_VIDEO_DECODER_HISTOGRAM_COMPONENT value);
+std::string ToString(D3D11_VIDEO_DECODER_HISTOGRAM_COMPONENT_FLAGS value);
+std::string ToString_D3D11_VIDEO_DECODER_HISTOGRAM_COMPONENT_FLAGS(uint32_t flags);
+std::string ToString(D3D11_CRYPTO_SESSION_KEY_EXCHANGE_FLAGS value);
+std::string ToString_D3D11_CRYPTO_SESSION_KEY_EXCHANGE_FLAGS(uint32_t flags);
 std::string ToString(const IID& riid);
 inline std::string ToString(const GUID& obj, ToStringFlags toStringFlags, uint32_t tabCount, uint32_t tabSize){ return ToString(obj); }
 
