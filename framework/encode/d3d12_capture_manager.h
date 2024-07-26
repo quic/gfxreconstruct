@@ -2,7 +2,7 @@
 ** Copyright (c) 2018-2020 Valve Corporation
 ** Copyright (c) 2018-2021 LunarG, Inc.
 ** Copyright (c) 2019-2024 Advanced Micro Devices, Inc. All rights reserved.
-** Copyright (c) 2023 Qualcomm Innovation Center, Inc. All rights reserved.
+** Copyright (c) 2023-2024 Qualcomm Innovation Center, Inc. All rights reserved.
 **
 ** Permission is hereby granted, free of charge, to any person obtaining a
 ** copy of this software and associated documentation files (the "Software"),
@@ -1087,9 +1087,28 @@ class D3D12CaptureManager : public ApiCaptureManager
     std::shared_ptr<ID3D11ResourceInfo> GetResourceInfo(ID3D11Resource_Wrapper* wrapper);
     void*
           AllocateMappedResourceMemory(util::PageGuardManager* manager, MappedSubresource& mapped_subresource, size_t size);
+    void* AllocateMappedResourceMemoryDeferred(util::WriteWatchTracker* deferred_tracker,
+                                               MappedSubresource&       mapped_subresource,
+                                               size_t                   size);
     void* GetMappedResourceMemory(util::PageGuardManager* manager, const MappedSubresource& mapped_subresource);
+    void* GetMappedResourceMemoryDeferred(util::WriteWatchTracker* deferred_tracker,
+                                          const MappedSubresource& mapped_subresource);
     void* UpdateDiscardedResourceMemory(util::PageGuardManager* manager, const MappedSubresource& mapped_subresource);
+    void* UpdateDiscardedResourceMemoryDeferred(util::WriteWatchTracker* deferred_tracker,
+                                                const MappedSubresource& mapped_subresource);
     void  FreeMappedResourceMemory(ID3D11Resource_Wrapper* wrapper);
+    void  ProcessMapDiscardNoOverwriteUnmapped(format::HandleId                          context_id,
+                                               std::shared_ptr<ID3D11DeviceContextInfo>& context_info,
+                                               std::shared_ptr<ID3D11ResourceInfo>&      resource_info,
+                                               MappedSubresource&                        mapped_subresource,
+                                               D3D11_MAP                                 map_type,
+                                               D3D11_MAPPED_SUBRESOURCE*                 mapped_subresource_data,
+                                               size_t                                    size);
+    void  ProcessMapDiscardMapped(std::shared_ptr<ID3D11DeviceContextInfo>& context_info,
+                                  MappedSubresource&                        mapped_subresource,
+                                  D3D11_MAP                                 map_type,
+                                  D3D11_MAPPED_SUBRESOURCE*                 mapped_subresource_data);
+    void  ProcessUnmap(std::shared_ptr<ID3D11DeviceContextInfo>& context_info, MappedSubresource& mapped_subresource);
     void  InitializeID3D11Texture2DInfo(ID3D11Texture2D_Wrapper* wrapper, const D3D11_TEXTURE2D_DESC* desc);
     void  AddViewResourceRef(ID3D11ViewInfo* info, ID3D11Resource* resource);
     void  ReleaseViewResourceRef(ID3D11ViewInfo* info);
