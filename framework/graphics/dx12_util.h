@@ -1,6 +1,7 @@
 /*
 ** Copyright (c) 2021 LunarG, Inc.
 ** Copyright (c) 2021-2023 Advanced Micro Devices, Inc. All rights reserved.
+** Copyright (c) 2023 Qualcomm Innovation Center, Inc. All rights reserved.
 **
 ** Permission is hereby granted, free of charge, to any person obtaining a
 ** copy of this software and associated documentation files (the "Software"),
@@ -32,11 +33,12 @@
 #include "format/format.h"
 
 #include <comdef.h>
+#include <d3d11.h>
 #include <d3d12.h>
 #include <dxgi1_4.h>
-#include <vector>
-#include <unordered_map>
 #include <map>
+#include <unordered_map>
+#include <vector>
 
 GFXRECON_BEGIN_NAMESPACE(gfxrecon)
 GFXRECON_BEGIN_NAMESPACE(graphics)
@@ -278,6 +280,54 @@ void RobustGetCopyableFootprint(ID3D12Device*                       device,
                                 UINT*                               pNumRows,
                                 UINT64*                             pRowSizeInBytes,
                                 UINT64*                             pTotalBytes);
+
+bool IsFormatCompressed(DXGI_FORMAT format);
+
+uint64_t GetCompressedSubresourcePixelByteSize(DXGI_FORMAT format);
+
+uint64_t GetPixelByteSize(DXGI_FORMAT format);
+
+uint32_t GetNumSubresources(const D3D11_TEXTURE1D_DESC* desc);
+
+uint32_t GetNumSubresources(const D3D11_TEXTURE2D_DESC* desc);
+
+uint32_t GetNumSubresources(const D3D11_TEXTURE3D_DESC* desc);
+
+uint32_t GetSubresourceDimension(uint32_t dimension, uint32_t mip_levels, uint32_t subresource);
+
+uint64_t GetSubresourceSize(const D3D11_TEXTURE1D_DESC* desc, const D3D11_SUBRESOURCE_DATA* data, uint32_t subresource);
+
+uint64_t GetSubresourceSize(const D3D11_TEXTURE2D_DESC* desc, const D3D11_SUBRESOURCE_DATA* data, uint32_t subresource);
+
+uint64_t GetSubresourceSize(const D3D11_TEXTURE3D_DESC* desc, const D3D11_SUBRESOURCE_DATA* data, uint32_t subresource);
+
+uint64_t GetSubresourceSize(D3D11_RESOURCE_DIMENSION type,
+                            DXGI_FORMAT              format,
+                            uint32_t                 width,
+                            uint32_t                 height,
+                            uint32_t                 depth,
+                            uint32_t                 mip_levels,
+                            uint32_t                 row_pitch,
+                            uint32_t                 depth_pitch,
+                            uint32_t                 subresource);
+
+uint64_t GetSubresourceSizeTex1D(DXGI_FORMAT format, uint32_t width, uint32_t mip_levels, uint32_t subresource);
+
+uint64_t GetSubresourceSizeTex2D(
+    DXGI_FORMAT format, uint32_t height, uint32_t mip_levels, uint32_t row_pitch, uint32_t subresource);
+
+uint64_t GetSubresourceSizeTex3D(uint32_t depth, uint32_t mip_levels, uint32_t depth_pitch, uint32_t subresource);
+
+uint64_t GetSubresourceWriteDataSize(D3D11_RESOURCE_DIMENSION dst_type,
+                                     DXGI_FORMAT              dst_format,
+                                     uint32_t                 dst_width,
+                                     uint32_t                 dst_height,
+                                     uint32_t                 dst_depth,
+                                     uint32_t                 dst_mip_levels,
+                                     uint32_t                 dst_subresource,
+                                     const D3D11_BOX*         dst_box,
+                                     uint32_t                 src_row_pitch,
+                                     uint32_t                 src_depth_pitch);
 
 GFXRECON_END_NAMESPACE(dx12)
 GFXRECON_END_NAMESPACE(graphics)

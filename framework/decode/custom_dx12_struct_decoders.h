@@ -300,6 +300,14 @@ struct Decoded_D3D12_SAMPLER_DESC2
     PointerDecoder<float> FloatBorderColor;
 };
 
+struct Decoded_D3D11_SUBRESOURCE_DATA
+{
+    using struct_type = D3D11_SUBRESOURCE_DATA;
+
+    D3D11_SUBRESOURCE_DATA* decoded_value{ nullptr };
+    PointerDecoder<uint8_t> pSysMem;
+};
+
 struct Decoded_D3D11_BUFFER_SRV
 {
     using struct_type = D3D11_BUFFER_SRV;
