@@ -337,7 +337,7 @@ class Dx12ReplayConsumerBase : public Dx12Consumer
         if (handles_pointer != nullptr)
         {
             // The handle and ID array sizes are expected to be the same for mapping operations.
-            assert(handles_len == handles_pointer->GetLength());
+            assert((handles_len == handles_pointer->GetLength()) || (handles_len == 0xffffffff));
 
             handles = object_mapping::MapObjectArray(handles_pointer, object_info_table_);
         }
