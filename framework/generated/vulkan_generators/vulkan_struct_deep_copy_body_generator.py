@@ -253,7 +253,10 @@ class VulkanStructDeepCopyBodyGenerator(BaseGenerator):
             if value.name == 'pNext':
                 has_pNext = True
             elif value.is_pointer:
-                has_pointer_members = True
+                # Ignore external objects referenced as void* pointers to non-array values.
+                if (value.base_type not in self.EXTERNAL_OBJECT_TYPES
+                ) or value.is_array:
+                    has_pointer_members = True
 
         if not (has_pointer_members or has_pNext):
             return
@@ -286,17 +289,20 @@ class VulkanStructDeepCopyBodyGenerator(BaseGenerator):
             if value.name == 'pNext':
                 write('        handle_pnext(base_struct, i, offset, out_data);', file=self.outFile)
             elif value.is_pointer:
-                count_exp = self.getPointerCountExpression(typename, value)
-                if value.pointer_count == 1:
-                    write('        handle_pointer_member(base_struct.{0}, {1});'.format(value.name, count_exp), file=self.outFile)
-                elif value.pointer_count == 2:
-                    write('        if(base_struct.{0} != nullptr)'.format(value.name), file=self.outFile)
-                    write('        {', file=self.outFile)
-                    write('            for(uint32_t j = 0; j < {}; ++j)'.format(count_exp), file=self.outFile)
-                    write('            {', file=self.outFile)
-                    write('                handle_pointer_member(base_struct.{0}[j], 1);'.format(value.name), file=self.outFile)
-                    write('            }', file=self.outFile)
-                    write('        }', file=self.outFile)
+                # Ignore external objects referenced as void* pointers to non-array values.
+                if (value.base_type not in self.EXTERNAL_OBJECT_TYPES
+                ) or value.is_array:
+                    count_exp = self.getPointerCountExpression(typename, value)
+                    if value.pointer_count == 1:
+                        write('        handle_pointer_member(base_struct.{0}, {1});'.format(value.name, count_exp), file=self.outFile)
+                    elif value.pointer_count == 2:
+                        write('        if(base_struct.{0} != nullptr)'.format(value.name), file=self.outFile)
+                        write('        {', file=self.outFile)
+                        write('            for(uint32_t j = 0; j < {}; ++j)'.format(count_exp), file=self.outFile)
+                        write('            {', file=self.outFile)
+                        write('                handle_pointer_member(base_struct.{0}[j], 1);'.format(value.name), file=self.outFile)
+                        write('            }', file=self.outFile)
+                        write('        }', file=self.outFile)
             elif value.base_type in ["VkPipelineShaderStageCreateInfo", "VkAccelerationStructureGeometryDataKHR"]:
                 write('        handle_struct_member(base_struct, base_struct.{0}, i, offset, out_data);'.format(value.name), file=self.outFile)
         write('    }', file=self.outFile)
